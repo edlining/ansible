@@ -11,4 +11,26 @@
         owner: ec2-user
         group: ec2-user
         mode: 0755
-# bzip2 -d filename.bz2
+
+  - yum:
+      name: "{{ packages }}"
+    vars:
+      packages: 
+      - bzip2
+      - unzip
+      - ncurses
+      - "@Development tools"
+      - xorg-x11-*
+      - libX11-devel
+      state: latest
+    become: yes
+
+  - command: bzip2 -d /tmp/sfw/snes9x-1.53-src.tar.bz2
+
+  - unarchive:
+     src: /tmp/sfw/snes9x-1.53-src.tar
+     dest: /tmp/
+     remote_src: yes
+
+  - command: /tmp/snes9x-1.53-src/unix/configure
+  - command: make
