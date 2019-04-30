@@ -19,9 +19,10 @@
       - bzip2
       - unzip
       - ncurses
-      - "@Development tools"
       - xorg-x11-*
       - libX11-devel
+      - "@Development tools"
+      - libXext-devel*
       state: latest
     become: yes
 
@@ -32,5 +33,15 @@
      dest: /tmp/
      remote_src: yes
 
-  - command: /tmp/snes9x-1.53-src/unix/configure
-  - command: make
+  - name: Configuring snes source 
+    command: "./configure"
+    args:
+      chdir: "/tmp/snes9x-1.53-src/unix/"
+
+  - name: make snes source
+    command: "make"
+    args:
+      chdir: "/tmp/snes9x-1.53-src/unix/"
+
+  - name: run snes9x 
+    script: /tmp/snes9x-1.53-src/unix/snes9x /tmp/sfw/DonkeyKongCountry2DiddysKongQuest.zip
