@@ -21,9 +21,10 @@
       - ncurses
       - xorg-x11-*
       - libX11-devel
-      - "@Development tools"
+#      - "@Development tools"
       - libXext-devel*
       - gcc*
+      - xauth
       state: latest
     become: yes
 
@@ -39,10 +40,10 @@
     args:
       chdir: "/tmp/snes9x-1.53-src/unix/"
 
-#  - name: make snes source
-#    command: "make"
-#    args:
-#      chdir: "/tmp/snes9x-1.53-src/unix/"
+  - name: make snes source
+    command: "make"
+    args:
+      chdir: "/tmp/snes9x-1.53-src/unix/"
 #
 #  - name: run snes9x 
 #    script: /tmp/snes9x-1.53-src/unix/snes9x /tmp/sfw/DonkeyKongCountry2DiddysKongQuest.zip
